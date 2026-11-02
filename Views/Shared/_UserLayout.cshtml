@@ -1,0 +1,235 @@
+﻿
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - QLTKB</title>
+
+    <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+                background: #f3f5f9;
+                color: #263445;
+            }
+
+            .topbar {
+                height: 68px;
+                background: #2875bb;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 25px;
+                box-shadow: 0 2px 8px #00000018;
+            }
+
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 13px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .brand-icon {
+                width: 42px;
+                height: 42px;
+                border-radius: 10px;
+                background: white;
+                color: #2875bb;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 16px;
+            }
+
+            .brand small {
+                display: block;
+                font-size: 11px;
+                font-weight: normal;
+                margin-top: 4px;
+                letter-spacing: 1px;
+            }
+
+            .topbar-right {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-size: 14px;
+            }
+
+            .main-layout {
+                display: flex;
+                min-height: calc(100vh - 68px);
+            }
+
+            .sidebar {
+                width: 245px;
+                flex-shrink: 0;
+                background: #202832;
+                color: #d8e0e9;
+                padding: 20px 12px;
+            }
+
+            .menu-title {
+                color: #7dbdff;
+                font-size: 12px;
+                font-weight: bold;
+                padding: 10px 12px 18px;
+                letter-spacing: 0.5px;
+            }
+
+            .menu-item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 13px 14px;
+                margin-bottom: 5px;
+                border-radius: 6px;
+                color: #d8e0e9;
+                text-decoration: none;
+                font-size: 14px;
+                transition: 0.2s;
+            }
+
+                .menu-item:hover {
+                    background: #344252;
+                    color: white;
+                }
+
+                .menu-item.active {
+                    background: #2875bb;
+                    color: white;
+                    font-weight: bold;
+                }
+
+            .content {
+                flex: 1;
+                min-width: 0;
+                padding: 28px;
+            }
+
+            .footer {
+                padding: 18px 0 0;
+                color: #8a95a3;
+                font-size: 12px;
+                text-align: center;
+            }
+
+            .logout-btn {
+                padding: 9px 15px;
+                border: 1px solid white;
+                border-radius: 6px;
+                background: transparent;
+                color: white;
+                cursor: pointer;
+            }
+
+                .logout-btn:hover {
+                    background: white;
+                    color: #2875bb;
+                }
+
+            @@media (max-width: 760px) {
+                .sidebar {
+                    width: 72px;
+                    padding: 15px 7px;
+                }
+
+                .menu-title {
+                    display: none;
+                }
+
+                .menu-item {
+                    justify-content: center;
+                    padding: 14px 5px;
+                    font-size: 0;
+                }
+
+                .content {
+                    padding: 18px 12px;
+                }
+
+                .brand {
+                    font-size: 15px;
+                }
+
+                .topbar {
+                    padding: 0 12px;
+                }
+            }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-icon">TKB</div>
+            <div>
+                HỆ THỐNG QLTKB
+                <small>CỔNG THÔNG TIN NGƯỜI DÙNG</small>
+            </div>
+        </div>
+
+        <div class="topbar-right">
+            <span>
+                Xin chào, @(User.Identity?.Name ?? "Người dùng")
+            </span>
+
+            <form asp-controller="Account"
+                  asp-action="Logout"
+                  method="post">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="logout-btn">
+                    Đăng xuất
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <aside class="sidebar">
+            <div class="menu-title">MENU NGƯỜI DÙNG</div>
+
+            <a asp-controller="User"
+               asp-action="Index"
+               class="menu-item active">
+                Trang chủ
+            </a>
+
+            <a href="#" class="menu-item">
+                Thời khóa biểu
+            </a>
+
+            <a href="#" class="menu-item">
+                Lịch học
+            </a>
+
+            <a href="#" class="menu-item">
+                Lịch giảng dạy
+            </a>
+
+            <a href="#" class="menu-item">
+                Thông tin cá nhân
+            </a>
+        </aside>
+
+        <main class="content">
+            @RenderBody()
+
+            <div class="footer">
+                Hệ thống quản lý thời khóa biểu · QLTKB
+            </div>
+        </main>
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

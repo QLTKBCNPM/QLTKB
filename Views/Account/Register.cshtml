@@ -1,0 +1,166 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Đăng ký";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Đăng ký - QLTKB</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #f1f5fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .register-box {
+            width: 100%;
+            max-width: 450px;
+            padding: 35px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px #00000012;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2875bb;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #778395;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 7px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d5dce5;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 24px;
+            padding: 13px;
+            border: none;
+            border-radius: 6px;
+            background: #2875bb;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .submit-btn:hover {
+                background: #1d609c;
+            }
+
+        .links {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        a {
+            color: #2875bb;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <div class="register-box">
+        <h2>ĐĂNG KÝ TÀI KHOẢN</h2>
+        <p class="subtitle">
+            Hệ thống quản lý thời khóa biểu
+        </p>
+
+        <form>
+            <label for="fullname">Họ và tên</label>
+            <input id="fullname"
+                   name="fullname"
+                   type="text"
+                   placeholder="Nhập họ và tên"
+                   autocomplete="name"
+                   required />
+
+            <label for="username">Tên đăng nhập</label>
+            <input id="username"
+                   name="username"
+                   type="text"
+                   placeholder="Nhập tên đăng nhập"
+                   autocomplete="username"
+                   required />
+
+            <label for="email">Email</label>
+            <input id="email"
+                   name="email"
+                   type="email"
+                   placeholder="Nhập địa chỉ email"
+                   autocomplete="email"
+                   required />
+
+            <label for="password">Mật khẩu</label>
+            <input id="password"
+                   name="password"
+                   type="password"
+                   placeholder="Tạo mật khẩu"
+                   autocomplete="new-password"
+                   required />
+
+            <label for="confirmPassword">Xác nhận mật khẩu</label>
+            <input id="confirmPassword"
+                   name="confirmPassword"
+                   type="password"
+                   placeholder="Nhập lại mật khẩu"
+                   autocomplete="new-password"
+                   required />
+
+            <button class="submit-btn" type="submit">
+                Đăng ký
+            </button>
+        </form>
+
+        <div class="links">
+            Đã có tài khoản?
+            <a asp-controller="Account" asp-action="Login">
+                Đăng nhập
+            </a>
+            <br />
+            <a asp-controller="Home" asp-action="Index">
+                Quay lại trang chủ
+            </a>
+        </div>
+    </div>
+</body>
+</html>

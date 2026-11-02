@@ -1,0 +1,193 @@
+﻿@{
+    ViewData["Title"] = "Tổng quan";
+}
+
+<style>
+    .welcome-box {
+        background: linear-gradient(120deg, #2875bb, #4598dc);
+        color: white;
+        border-radius: 12px;
+        padding: 27px;
+        margin-bottom: 25px;
+    }
+
+        .welcome-box h2 {
+            margin: 0 0 10px;
+            font-size: 23px;
+        }
+
+        .welcome-box p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #edf6ff;
+        }
+
+    .section-title {
+        font-size: 18px;
+        margin: 25px 0 16px;
+        color: #263e59;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 10px;
+        padding: 22px 18px;
+        border: 1px solid #e7ebf1;
+        box-shadow: 0 3px 10px #00000005;
+    }
+
+    .stat-icon {
+        width: 43px;
+        height: 43px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 23px;
+        margin-bottom: 17px;
+    }
+
+    .blue {
+        background: #e5f1ff;
+        color: #2875bb;
+    }
+
+    .green {
+        background: #e1f7ed;
+        color: #159568;
+    }
+
+    .orange {
+        background: #fff0dc;
+        color: #d98517;
+    }
+
+    .purple {
+        background: #eee8ff;
+        color: #7955c5;
+    }
+
+    .stat-label {
+        color: #778395;
+        font-size: 13px;
+        margin-bottom: 9px;
+    }
+
+    .stat-number {
+        font-size: 27px;
+        font-weight: bold;
+        color: #263e59;
+    }
+
+    .quick-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .quick-card {
+        background: white;
+        border: 1px solid #e7ebf1;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+        .quick-card h3 {
+            margin: 0 0 9px;
+            font-size: 15px;
+            color: #263e59;
+        }
+
+        .quick-card p {
+            font-size: 13px;
+            color: #778395;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+    @@media (max-width: 1000px) {
+        .stats-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .quick-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media (max-width: 420px) {
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="page-heading">
+    <h1>Tổng quan hệ thống</h1>
+    <p>Trang chủ quản lý thời khóa biểu</p>
+</div>
+
+<div class="welcome-box">
+    <h2>Chào mừng đến với hệ thống QLTKB!</h2>
+    <p>
+        Hệ thống hỗ trợ quản lý học phần, giảng viên, phòng học,
+        lớp học phần và thời khóa biểu.
+        Bạn có thể tra cứu và xuất thời khóa biểu khi các chức năng được triển khai.
+    </p>
+</div>
+
+<h2 class="section-title">Thông tin hệ thống</h2>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        
+        <div class="stat-label">Tổng số học phần</div>
+        <div class="stat-number">0</div>
+    </div>
+
+    <div class="stat-card">
+        
+        <div class="stat-label">Tổng số giảng viên</div>
+        <div class="stat-number">0</div>
+    </div>
+
+    <div class="stat-card">
+        
+        <div class="stat-label">Tổng số lớp học phần</div>
+        <div class="stat-number">0</div>
+    </div>
+
+    <div class="stat-card">
+        
+        <div class="stat-label">Tổng số phòng học</div>
+        <div class="stat-number">0</div>
+    </div>
+
+    
+</div>
+
+<h2 class="section-title">Chức năng chính</h2>
+
+<div class="quick-grid">
+    <div class="quick-card">
+        <h3>Quản lý dữ liệu</h3>
+        <p>Quản lý danh mục học phần, giảng viên, phòng học và học kỳ.</p>
+    </div>
+
+    <div class="quick-card">
+        <h3>Quản lý thời khóa biểu</h3>
+        <p>Thiết lập, kiểm tra và theo dõi lịch học của các lớp học phần.</p>
+    </div>
+
+    <div class="quick-card">
+        <h3>Tra cứu và xuất lịch</h3>
+        <p>Hỗ trợ xem thời khóa biểu theo các tiêu chí và xuất Excel.</p>
+    </div>
+</div>
