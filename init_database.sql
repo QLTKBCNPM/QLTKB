@@ -40,7 +40,23 @@ BEGIN
 END
 GO
 
--- 4. Thêm dữ liệu mẫu (Admin và User)
+-- 4. Tạo bảng HocPhan
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'HocPhan')
+BEGIN
+    CREATE TABLE HocPhan (
+        HocPhanID INT IDENTITY(1,1) PRIMARY KEY,
+        MaHocPhan NVARCHAR(20) NOT NULL UNIQUE,
+        TenHocPhan NVARCHAR(150) NOT NULL,
+        SoTinChi INT NOT NULL DEFAULT 3,
+        SoTietLyThuyet INT NOT NULL DEFAULT 0,
+        SoTietThucHanh INT NOT NULL DEFAULT 0,
+        MoTa NVARCHAR(500) NULL,
+        TrangThai BIT NOT NULL DEFAULT 1
+    );
+END
+GO
+
+-- 5. Thêm dữ liệu mẫu (VaiTro, TaiKhoan, HocPhan)
 IF NOT EXISTS (SELECT * FROM VaiTro WHERE TenVaiTro = 'Admin')
 BEGIN
     INSERT INTO VaiTro (TenVaiTro, MoTa) VALUES 
@@ -57,5 +73,15 @@ BEGIN
     INSERT INTO TaiKhoan (TenDangNhap, Email, MatKhau, HoTen, VaiTro, TrangThai, NgayTao) VALUES
     ('admin', 'admin@example.com', 'admin123', N'Quản Trị Viên', @AdminVaiTroID, 1, SYSDATETIME()),
     ('user', 'user@example.com', 'user123', N'Người Dùng Mẫu', @UserVaiTroID, 1, SYSDATETIME());
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM HocPhan WHERE MaHocPhan = 'INT1306')
+BEGIN
+    INSERT INTO HocPhan (MaHocPhan, TenHocPhan, SoTinChi, SoTietLyThuyet, SoTietThucHanh, MoTa, TrangThai) VALUES
+    ('INT1306', N'Lập trình Web nâng cao', 3, 30, 30, N'Học về ASP.NET Core, MVC và Entity Framework', 1),
+    ('INT1310', N'Cơ sở dữ liệu', 3, 36, 18, N'Kiến thức về RDBMS, SQL Server, thiết kế CSDL', 1),
+    ('INT1315', N'Công nghệ phần mềm', 3, 45, 0, N'Quy trình phát triển phần mềm, Agile/Scrum', 1),
+    ('MAT1101', N'Toán rời rạc', 3, 45, 0, N'Đồ thị, logic toán và đại số boolean', 1);
 END
 GO
