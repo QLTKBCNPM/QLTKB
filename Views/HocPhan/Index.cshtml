@@ -1,0 +1,202 @@
+@model IEnumerable<QLTKB.Models.HocPhan>
+@{
+    ViewData["Title"] = "Quản lý Học phần";
+}
+
+<style>
+    .page-header-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .btn-primary-custom {
+        background: #2875bb;
+        color: white;
+        padding: 9px 18px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: none;
+        cursor: pointer;
+    }
+    .btn-primary-custom:hover {
+        background: #1f5d96;
+        color: white;
+    }
+    .card-box {
+        background: white;
+        border-radius: 10px;
+        border: 1px solid #e7ebf1;
+        padding: 20px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .search-bar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .search-input {
+        flex: 1;
+        padding: 9px 14px;
+        border: 1px solid #d2d9e1;
+        border-radius: 6px;
+        font-size: 14px;
+        outline: none;
+    }
+    .search-input:focus {
+        border-color: #2875bb;
+    }
+    .table-custom {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+    .table-custom th {
+        background: #f7f9fc;
+        color: #556575;
+        font-weight: 600;
+        text-align: left;
+        padding: 12px 14px;
+        border-bottom: 2px solid #e7ebf1;
+    }
+    .table-custom td {
+        padding: 12px 14px;
+        border-bottom: 1px solid #eef2f6;
+        vertical-align: middle;
+    }
+    .table-custom tr:hover td {
+        background-color: #fafcff;
+    }
+    .badge-status {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+    .badge-active {
+        background: #e1f7ed;
+        color: #159568;
+    }
+    .badge-inactive {
+        background: #feecef;
+        color: #e03137;
+    }
+    .action-links {
+        display: flex;
+        gap: 8px;
+    }
+    .btn-edit {
+        color: #2875bb;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    .btn-delete {
+        color: #dc3545;
+        background: none;
+        border: none;
+        padding: 0;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .alert-success-custom {
+        background-color: #d1e7dd;
+        color: #0f5132;
+        padding: 12px 16px;
+        border-radius: 6px;
+        margin-bottom: 16px;
+        font-size: 14px;
+    }
+</style>
+
+<div class="page-header-flex">
+    <div>
+        <h1 style="margin: 0; font-size: 24px; color: #263e59;">Danh mục Học phần</h1>
+        <p style="margin: 5px 0 0; color: #778395; font-size: 14px;">Quản lý mã môn, tên học phần và số tín chỉ</p>
+    </div>
+    <a asp-action="Create" class="btn-primary-custom">+ Thêm học phần mới</a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert-success-custom">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="card-box">
+    <form method="get" asp-action="Index" class="search-bar">
+        <input type="text" name="search" value="@ViewBag.CurrentSearch" placeholder="Tìm theo mã môn hoặc tên học phần..." class="search-input" />
+        <button type="submit" class="btn-primary-custom" style="padding: 9px 20px;">Tìm kiếm</button>
+        @if (!string.IsNullOrEmpty(ViewBag.CurrentSearch as string))
+        {
+            <a asp-action="Index" style="align-self: center; color: #6c757d; font-size: 13px; text-decoration: none;">Xóa lọc</a>
+        }
+    </form>
+
+    <div style="overflow-x: auto;">
+        <table class="table-custom">
+            <thead>
+                <tr>
+                    <th>Mã học phần</th>
+                    <th>Tên học phần</th>
+                    <th style="text-align: center;">Số TC</th>
+                    <th style="text-align: center;">LT / TH (tiết)</th>
+                    <th>Mô tả</th>
+                    <th>Trạng thái</th>
+                    <th style="text-align: right;">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><strong style="color: #2875bb;">@item.MaHocPhan</strong></td>
+                            <td>@item.TenHocPhan</td>
+                            <td style="text-align: center;"><span style="font-weight: 600;">@item.SoTinChi</span></td>
+                            <td style="text-align: center; color: #666;">@item.SoTietLyThuyet / @item.SoTietThucHanh</td>
+                            <td style="color: #777; max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="@item.MoTa">
+                                @(string.IsNullOrEmpty(item.MoTa) ? "—" : item.MoTa)
+                            </td>
+                            <td>
+                                @if (item.TrangThai)
+                                {
+                                    <span class="badge-status badge-active">Đang mở</span>
+                                }
+                                else
+                                {
+                                    <span class="badge-status badge-inactive">Tạm ngưng</span>
+                                }
+                            </td>
+                            <td style="text-align: right;">
+                                <div class="action-links" style="justify-content: flex-end;">
+                                    <a asp-action="Edit" asp-route-id="@item.HocPhanID" class="btn-edit">Sửa</a>
+                                    <form asp-action="Delete" asp-route-id="@item.HocPhanID" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn xóa học phần \'@item.TenHocPhan\' không?');" style="margin: 0; display: inline;">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn-delete">Xóa</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 30px; color: #888;">
+                            Không tìm thấy học phần nào.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

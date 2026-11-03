@@ -1,0 +1,145 @@
+@model QLTKB.Models.HocPhan
+@{
+    ViewData["Title"] = "Thêm học phần mới";
+}
+
+<style>
+    .form-card {
+        background: white;
+        border-radius: 10px;
+        border: 1px solid #e7ebf1;
+        padding: 28px;
+        max-width: 650px;
+        margin: 0 auto;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .form-group {
+        margin-bottom: 18px;
+    }
+    .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #263e59;
+        margin-bottom: 6px;
+    }
+    .form-control-custom {
+        width: 100%;
+        padding: 9px 12px;
+        border: 1px solid #d2d9e1;
+        border-radius: 6px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+    .form-control-custom:focus {
+        border-color: #2875bb;
+        outline: none;
+    }
+    .form-row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    .form-row-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+    }
+    .text-danger {
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 4px;
+        display: block;
+    }
+    .btn-group-custom {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+    }
+    .btn-submit {
+        background: #2875bb;
+        color: white;
+        padding: 10px 22px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .btn-submit:hover {
+        background: #1f5d96;
+    }
+    .btn-cancel {
+        background: #f1f3f5;
+        color: #495057;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        display: inline-block;
+        text-align: center;
+    }
+    .btn-cancel:hover {
+        background: #e9ecef;
+    }
+</style>
+
+<div style="margin-bottom: 20px; text-align: center;">
+    <h1 style="margin: 0; font-size: 22px; color: #263e59;">Thêm Học Phần Mới</h1>
+    <p style="margin: 5px 0 0; color: #778395; font-size: 14px;">Nhập đầy đủ thông tin để lưu vào danh mục học phần</p>
+</div>
+
+<div class="form-card">
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-row-2">
+            <div class="form-group">
+                <label asp-for="MaHocPhan" class="form-label">Mã học phần *</label>
+                <input asp-for="MaHocPhan" class="form-control-custom" placeholder="VD: INT1306" />
+                <span asp-validation-for="MaHocPhan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TenHocPhan" class="form-label">Tên học phần *</label>
+                <input asp-for="TenHocPhan" class="form-control-custom" placeholder="VD: Lập trình Web" />
+                <span asp-validation-for="TenHocPhan" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row-3">
+            <div class="form-group">
+                <label asp-for="SoTinChi" class="form-label">Số tín chỉ *</label>
+                <input asp-for="SoTinChi" type="number" min="1" max="15" class="form-control-custom" />
+                <span asp-validation-for="SoTinChi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoTietLyThuyet" class="form-label">Tiết Lý thuyết</label>
+                <input asp-for="SoTietLyThuyet" type="number" min="0" class="form-control-custom" />
+                <span asp-validation-for="SoTietLyThuyet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoTietThucHanh" class="form-label">Tiết Thực hành</label>
+                <input asp-for="SoTietThucHanh" type="number" min="0" class="form-control-custom" />
+                <span asp-validation-for="SoTietThucHanh" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="MoTa" class="form-label">Mô tả / Đề cương tóm tắt</label>
+            <textarea asp-for="MoTa" rows="3" class="form-control-custom" placeholder="Nội dung tóm tắt học phần..."></textarea>
+            <span asp-validation-for="MoTa" class="text-danger"></span>
+        </div>
+
+        <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
+            <input asp-for="TrangThai" type="checkbox" id="chkStatus" style="width: 18px; height: 18px;" />
+            <label for="chkStatus" class="form-label" style="margin: 0; cursor: pointer;">Đang hoạt động (cho phép mở lớp)</label>
+        </div>
+
+        <div class="btn-group-custom">
+            <button type="submit" class="btn-submit">Lưu học phần</button>
+            <a asp-action="Index" class="btn-cancel">Hủy bỏ</a>
+        </div>
+    </form>
+</div>
+

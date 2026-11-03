@@ -1,4 +1,3 @@
-﻿
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -55,10 +54,6 @@
             font-weight: normal;
             margin-top: 4px;
             letter-spacing: 1px;
-        }
-
-        .topbar-right {
-            font-size: 14px;
         }
 
         .topbar-right {
@@ -234,7 +229,7 @@
                       method="post"
                       class="m-0">
                     @Html.AntiForgeryToken()
-                    <button type="submit" class="btn btn-outline-light">
+                    <button type="submit" class="btn btn-outline-light" style="background: transparent; border: 1px solid white; color: white; padding: 6px 12px; border-radius: 4px; cursor: pointer;">
                         Đăng xuất
                     </button>
                 </form>
@@ -246,7 +241,6 @@
                    class="auth-link">
                     Đăng nhập
                 </a>
-
 
                 <a asp-controller="Account"
                    asp-action="Register"
@@ -261,48 +255,39 @@
         <aside class="sidebar">
             <div class="menu-title">MENU CHỨC NĂNG</div>
 
-            <a href="/" class="menu-item active">
-               
+            <a href="/" class="menu-item">
                 Trang chủ
             </a>
 
-            <a href="#" class="menu-item ">
-                
+            <a href="#" class="menu-item">
                 Quản lý tài khoản
             </a>
 
-            <a href="#" class="menu-item">
-               
+            <a asp-controller="HocPhan" asp-action="Index" class="menu-item">
                 Quản lý học phần
             </a>
 
             <a href="#" class="menu-item">
-                
                 Quản lý giảng viên
             </a>
 
             <a href="#" class="menu-item">
-                
                 Quản lý phòng học
             </a>
 
             <a href="#" class="menu-item">
-               
                 Quản lý học kỳ
             </a>
 
             <a href="#" class="menu-item">
-                
                 Lớp học phần
             </a>
 
             <a href="#" class="menu-item">
-                
                 Thời khóa biểu
             </a>
 
             <a href="#" class="menu-item">
-                
                 Xuất Excel
             </a>
         </aside>

@@ -1,4 +1,3 @@
-﻿
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,6 +8,7 @@ namespace QLTKB.Models
     public class TaiKhoan
     {
         [Key]
+        [Column("ID")]
         public int TaiKhoanID { get; set; }
 
         [Required]
@@ -27,6 +27,7 @@ namespace QLTKB.Models
         [StringLength(100)]
         public string HoTen { get; set; } = string.Empty;
 
+        [Column("VaiTro")]
         public int VaiTroID { get; set; }
 
         public bool TrangThai { get; set; } = true;
@@ -37,4 +38,3 @@ namespace QLTKB.Models
         public VaiTro? VaiTro { get; set; }
     }
 }
-
