@@ -1,0 +1,89 @@
+﻿@model IEnumerable<QLTKB.Models.SinhVien>
+
+@{
+    ViewData["Title"] = "Quản lý sinh viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="background:white; padding:25px; border-radius:12px;
+    box-shadow:0 2px 10px #00000010;">
+
+    <div style="display:flex; justify-content:space-between;
+        align-items:center; margin-bottom:20px;">
+
+        <div>
+            <h2 style="margin:0; color:#263445;">Quản lý sinh viên</h2>
+            <p style="color:#7b8794; margin-top:6px;">
+                Danh sách thông tin sinh viên trong hệ thống
+            </p>
+        </div>
+
+        <a asp-action="Create" class="btn btn-primary">
+            + Thêm sinh viên
+        </a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+    <table class="table table-bordered table-hover">
+        <thead style="background:#2875bb; color:white;">
+            <tr>
+                <th>Mã sinh viên</th>
+                <th>Họ và tên</th>
+                <th>Email</th>
+                <th>Lớp</th>
+                <th>Ngành</th>
+                <th>Khóa học</th>
+                <th>Số điện thoại</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var sv in Model)
+            {
+                <tr>
+                    <td>@sv.MaSinhVien</td>
+                    <td>@sv.TaiKhoan?.HoTen</td>
+                    <td>@sv.TaiKhoan?.Email</td>
+                    <td>@sv.Lop</td>
+                    <td>@sv.Nganh</td>
+                    <td>@sv.KhoaHoc</td>
+                    <td>@sv.SoDienThoai</td>
+                    <td>
+                        <a asp-action="Edit"
+                           asp-route-id="@sv.SinhVienID"
+                           class="btn btn-warning btn-sm">
+                            Sửa
+                        </a>
+                        <form asp-action="Delete"
+                              asp-route-id="@sv.SinhVienID"
+                              method="post"
+                              style="display:inline;"
+                              onsubmit="return confirm('Bạn có chắc chắn muốn khóa tài khoản sinh viên này không?');">
+
+                            @Html.AntiForgeryToken()
+
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                Xóa
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!Model.Any())
+    {
+        <p style="text-align:center; color:#888;">
+            Chưa có dữ liệu sinh viên.
+        </p>
+    }
+</div>
+

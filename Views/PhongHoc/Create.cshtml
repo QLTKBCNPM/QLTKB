@@ -1,0 +1,90 @@
+﻿@model QLTKB.Models.PhongHoc
+
+@{
+    ViewData["Title"] = "Thêm phòng học";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h4>Thêm phòng học</h4>
+        </div>
+
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="MaPhong" class="form-label">
+                        Mã phòng
+                    </label>
+                    <input asp-for="MaPhong" class="form-control"
+                           placeholder="Nhập mã phòng" />
+                    <span asp-validation-for="MaPhong"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="TenPhong" class="form-label">
+                        Tên phòng
+                    </label>
+                    <input asp-for="TenPhong" class="form-control"
+                           placeholder="Nhập tên phòng" />
+                    <span asp-validation-for="TenPhong"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ToaNha" class="form-label">
+                        Tòa nhà
+                    </label>
+                    <input asp-for="ToaNha" class="form-control"
+                           placeholder="Nhập tòa nhà" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="SucChua" class="form-label">
+                        Sức chứa
+                    </label>
+                    <input asp-for="SucChua" type="number"
+                           class="form-control" />
+                    <span asp-validation-for="SucChua"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="LoaiPhong" class="form-label">
+                        Loại phòng
+                    </label>
+                    <input asp-for="LoaiPhong" class="form-control"
+                           placeholder="Ví dụ: Phòng lý thuyết, phòng thực hành" />
+                </div>
+
+                <div class="form-check mb-3">
+                    <input asp-for="TrangThai"
+                           class="form-check-input" />
+                    <label asp-for="TrangThai" class="form-check-label">
+                        Đang hoạt động
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Lưu phòng học
+                </button>
+
+                <a asp-action="Index" class="btn btn-secondary">
+                    Quay lại
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

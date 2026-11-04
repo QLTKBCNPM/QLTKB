@@ -1,0 +1,83 @@
+﻿@model QLTKB.Models.GiangVien
+
+@{
+    ViewData["Title"] = "Sửa giảng viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="background:white; padding:25px; border-radius:12px;
+    max-width:850px; margin:auto;">
+
+    <h2>Sửa thông tin giảng viên</h2>
+    <p style="color:#7b8794;">
+        Cập nhật thông tin tài khoản và hồ sơ giảng viên.
+    </p>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <form asp-action="Edit" method="post">
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" name="id" value="@Model.GiangVienID" />
+
+        <h4>Thông tin tài khoản</h4>
+
+        <div class="mb-3">
+            <label>Họ và tên *</label>
+            <input name="fullname" class="form-control"
+                   value="@Model.TaiKhoan?.HoTen" required />
+        </div>
+
+        <div class="mb-3">
+            <label>Email *</label>
+            <input name="email" type="email" class="form-control"
+                   value="@Model.TaiKhoan?.Email" required />
+        </div>
+
+        <hr />
+
+        <h4>Thông tin hồ sơ giảng viên</h4>
+
+        <div class="mb-3">
+            <label>Mã giảng viên *</label>
+            <input name="maGiangVien" class="form-control"
+                   value="@Model.MaGiangVien" required />
+        </div>
+
+        <div class="mb-3">
+            <label>Khoa</label>
+            <input name="khoa" class="form-control"
+                   value="@Model.Khoa" />
+        </div>
+
+        <div class="mb-3">
+            <label>Bộ môn</label>
+            <input name="boMon" class="form-control"
+                   value="@Model.BoMon" />
+        </div>
+
+        <div class="mb-3">
+            <label>Học vị</label>
+            <input name="hocVi" class="form-control"
+                   value="@Model.HocVi" />
+        </div>
+
+        <div class="mb-3">
+            <label>Số điện thoại</label>
+            <input name="soDienThoai" class="form-control"
+                   value="@Model.SoDienThoai" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Lưu thay đổi
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Quay lại
+        </a>
+    </form>
+</div>
+

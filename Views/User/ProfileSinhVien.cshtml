@@ -1,0 +1,31 @@
+﻿@model QLTKB.Models.SinhVien
+
+@{
+    ViewData["Title"] = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Thông tin cá nhân sinh viên</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="mb-3">Thông tin tài khoản</h5>
+
+            <p><strong>Họ và tên:</strong> @Model.TaiKhoan?.HoTen</p>
+            <p><strong>Tên đăng nhập:</strong> @Model.TaiKhoan?.TenDangNhap</p>
+            <p><strong>Email:</strong> @Model.TaiKhoan?.Email</p>
+
+            <hr />
+
+            <h5 class="mb-3">Thông tin sinh viên</h5>
+
+            <p><strong>Mã sinh viên:</strong> @Model.MaSinhVien</p>
+            <p><strong>Lớp:</strong> @Model.Lop</p>
+            <p><strong>Ngành:</strong> @Model.Nganh</p>
+            <p><strong>Khóa học:</strong> @Model.KhoaHoc</p>
+            <p><strong>Số điện thoại:</strong> @Model.SoDienThoai</p>
+        </div>
+    </div>
+</div>
+

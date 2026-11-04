@@ -1,0 +1,158 @@
+﻿@model QLTKB.Models.HocPhan
+
+@{
+    ViewData["Title"] = "Khóa học phần";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .delete-container {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .delete-title {
+        color: #263e59;
+        font-size: 25px;
+        margin-bottom: 7px;
+    }
+
+    .delete-description {
+        color: #8491a2;
+        font-size: 14px;
+        margin-bottom: 22px;
+    }
+
+    .delete-card {
+        background: white;
+        padding: 28px;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    .warning-message {
+        background: #fff5e5;
+        color: #946c19;
+        padding: 14px;
+        border-radius: 8px;
+        font-size: 14px;
+        margin-bottom: 22px;
+    }
+
+    .info-row {
+        display: flex;
+        padding: 13px 0;
+        border-bottom: 1px solid #edf0f4;
+        font-size: 14px;
+    }
+
+    .info-label {
+        width: 170px;
+        color: #8491a2;
+        font-weight: 600;
+    }
+
+    .info-value {
+        color: #40536b;
+        flex: 1;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #edf0f4;
+    }
+
+    .btn-form {
+        padding: 10px 18px;
+        border: none;
+        border-radius: 7px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .btn-lock {
+        background: #d9534f;
+        color: white;
+    }
+
+        .btn-lock:hover {
+            background: #bd3733;
+            color: white;
+        }
+
+    .btn-back {
+        background: #edf1f5;
+        color: #526176;
+    }
+
+        .btn-back:hover {
+            background: #dfe5ec;
+            color: #35465c;
+        }
+</style>
+
+<div class="delete-container">
+    <h1 class="delete-title">Khóa học phần</h1>
+    <p class="delete-description">
+        Xác nhận khóa học phần khỏi danh sách đang hoạt động.
+    </p>
+
+    <div class="delete-card">
+        <div class="warning-message">
+            Bạn có chắc chắn muốn khóa học phần này không?
+            Học phần sẽ không bị xóa khỏi cơ sở dữ liệu.
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Mã học phần</div>
+            <div class="info-value">@Model.MaHocPhan</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Tên học phần</div>
+            <div class="info-value">@Model.TenHocPhan</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Số tín chỉ</div>
+            <div class="info-value">@Model.SoTinChi</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Số tiết lý thuyết</div>
+            <div class="info-value">@Model.SoTietLyThuyet</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Số tiết thực hành</div>
+            <div class="info-value">@Model.SoTietThucHanh</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Trạng thái hiện tại</div>
+            <div class="info-value">@(Model.TrangThai ? "Hoạt động" : "Đã khóa")</div>
+        </div>
+
+        <div class="form-actions">
+            <a asp-action="Index" class="btn-form btn-back">
+                Hủy
+            </a>
+
+            <form asp-action="Delete"
+                  asp-route-id="@Model.HocPhanID"
+                  method="post">
+                @Html.AntiForgeryToken()
+
+                <button type="submit" class="btn-form btn-lock">
+                    Xác nhận khóa
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

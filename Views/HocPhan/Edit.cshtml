@@ -1,0 +1,237 @@
+﻿@model QLTKB.Models.HocPhan
+
+@{
+    ViewData["Title"] = "Sửa học phần";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .form-container {
+        max-width: 850px;
+        margin: 0 auto;
+    }
+
+    .form-title {
+        color: #263e59;
+        font-size: 25px;
+        margin-bottom: 7px;
+    }
+
+    .form-description {
+        color: #8491a2;
+        font-size: 14px;
+        margin-bottom: 22px;
+    }
+
+    .form-card {
+        background: white;
+        padding: 28px;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    .form-group-custom {
+        margin-bottom: 19px;
+    }
+
+        .form-group-custom label {
+            display: block;
+            color: #40536b;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+    .form-control-custom {
+        width: 100%;
+        padding: 11px 13px;
+        border: 1px solid #dce3eb;
+        border-radius: 7px;
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+        .form-control-custom:focus {
+            border-color: #2875bb;
+            box-shadow: 0 0 0 3px rgba(40,117,187,0.10);
+        }
+
+    textarea.form-control-custom {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .form-row-custom {
+        display: flex;
+        gap: 18px;
+    }
+
+        .form-row-custom .form-group-custom {
+            flex: 1;
+            min-width: 0;
+        }
+
+    .validation-message {
+        color: #d33b3b;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .validation-summary {
+        color: #d33b3b;
+        margin-bottom: 15px;
+        font-size: 14px;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #edf0f4;
+    }
+
+    .btn-form {
+        padding: 10px 18px;
+        border: none;
+        border-radius: 7px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .btn-save {
+        background: #2875bb;
+        color: white;
+    }
+
+        .btn-save:hover {
+            background: #1d5e99;
+            color: white;
+        }
+
+    .btn-back {
+        background: #edf1f5;
+        color: #526176;
+    }
+
+        .btn-back:hover {
+            background: #dfe5ec;
+            color: #35465c;
+        }
+
+    @@media (max-width: 600px) {
+        .form-row-custom {
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .form-card {
+            padding: 18px;
+        }
+    }
+</style>
+
+<div class="form-container">
+    <h1 class="form-title">Sửa học phần</h1>
+    <p class="form-description">
+        Cập nhật thông tin học phần trong hệ thống.
+    </p>
+
+    <div class="form-card">
+        <form asp-action="Edit" asp-route-id="@Model.HocPhanID" method="post">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="HocPhanID" />
+
+            <div asp-validation-summary="ModelOnly"
+                 class="validation-summary"></div>
+
+            <div class="form-row-custom">
+                <div class="form-group-custom">
+                    <label asp-for="MaHocPhan">Mã học phần</label>
+                    <input asp-for="MaHocPhan"
+                           class="form-control-custom" />
+                    <span asp-validation-for="MaHocPhan"
+                          class="validation-message"></span>
+                </div>
+
+                <div class="form-group-custom">
+                    <label asp-for="TenHocPhan">Tên học phần</label>
+                    <input asp-for="TenHocPhan"
+                           class="form-control-custom" />
+                    <span asp-validation-for="TenHocPhan"
+                          class="validation-message"></span>
+                </div>
+            </div>
+
+            <div class="form-row-custom">
+                <div class="form-group-custom">
+                    <label asp-for="SoTinChi">Số tín chỉ</label>
+                    <input asp-for="SoTinChi"
+                           type="number"
+                           min="1"
+                           max="20"
+                           class="form-control-custom" />
+                    <span asp-validation-for="SoTinChi"
+                          class="validation-message"></span>
+                </div>
+
+                <div class="form-group-custom">
+                    <label asp-for="SoTietLyThuyet">Số tiết lý thuyết</label>
+                    <input asp-for="SoTietLyThuyet"
+                           type="number"
+                           min="0"
+                           class="form-control-custom" />
+                    <span asp-validation-for="SoTietLyThuyet"
+                          class="validation-message"></span>
+                </div>
+
+                <div class="form-group-custom">
+                    <label asp-for="SoTietThucHanh">Số tiết thực hành</label>
+                    <input asp-for="SoTietThucHanh"
+                           type="number"
+                           min="0"
+                           class="form-control-custom" />
+                    <span asp-validation-for="SoTietThucHanh"
+                          class="validation-message"></span>
+                </div>
+            </div>
+
+            <div class="form-group-custom">
+                <label asp-for="MoTa">Mô tả</label>
+                <textarea asp-for="MoTa"
+                          class="form-control-custom"></textarea>
+                <span asp-validation-for="MoTa"
+                      class="validation-message"></span>
+            </div>
+
+            <div class="form-group-custom">
+                <label asp-for="TrangThai">Trạng thái học phần</label>
+                <select asp-for="TrangThai" class="form-control-custom">
+                    <option value="true">Đang hoạt động</option>
+                    <option value="false">Đã khóa</option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <a asp-action="Index" class="btn-form btn-back">
+                    Quay lại
+                </a>
+
+                <button type="submit" class="btn-form btn-save">
+                    Lưu thay đổi
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

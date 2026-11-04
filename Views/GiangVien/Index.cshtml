@@ -1,0 +1,84 @@
+﻿@model IEnumerable<QLTKB.Models.GiangVien>
+
+@{
+    ViewData["Title"] = "Quản lý giảng viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="background:white; padding:25px; border-radius:12px;
+    box-shadow:0 2px 10px #00000010;">
+
+    <div style="display:flex; justify-content:space-between;
+        align-items:center; margin-bottom:20px;">
+
+        <div>
+            <h2 style="margin:0; color:#263445;">Quản lý giảng viên</h2>
+            <p style="color:#7b8794; margin-top:6px;">
+                Danh sách thông tin giảng viên trong hệ thống
+            </p>
+        </div>
+
+        <a asp-action="Create" class="btn btn-primary">
+            + Thêm giảng viên
+        </a>
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <thead style="background:#2875bb; color:white;">
+            <tr>
+                <th>Mã giảng viên</th>
+                <th>Họ và tên</th>
+                <th>Email</th>
+                <th>Khoa</th>
+                <th>Bộ môn</th>
+                <th>Học vị</th>
+                <th>Số điện thoại</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var gv in Model)
+            {
+                <tr>
+                    <td>@gv.MaGiangVien</td>
+                    <td>@gv.TaiKhoan?.HoTen</td>
+                    <td>@gv.TaiKhoan?.Email</td>
+                    <td>@gv.Khoa</td>
+                    <td>@gv.BoMon</td>
+                    <td>@gv.HocVi</td>
+                    <td>@gv.SoDienThoai</td>
+                    <td>
+                        <a asp-action="Edit"
+                           asp-route-id="@gv.GiangVienID"
+                           class="btn btn-warning btn-sm">
+                            Sửa
+                        </a>
+
+                        <form asp-action="Delete"
+                              asp-route-id="@gv.GiangVienID"
+                              method="post"
+                              style="display:inline;"
+                              onsubmit="return confirm('Bạn có chắc chắn muốn khóa tài khoản giảng viên này không?');">
+
+                            @Html.AntiForgeryToken()
+
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                Xóa
+                            </button>
+                        </form>
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!Model.Any())
+    {
+        <p style="text-align:center; color:#888;">
+            Chưa có dữ liệu giảng viên.
+        </p>
+    }
+</div>

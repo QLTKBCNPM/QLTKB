@@ -1,0 +1,192 @@
+﻿@model QLTKB.Models.TaiKhoan
+
+@{
+    ViewData["Title"] = "Khóa tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .delete-card {
+        max-width: 650px;
+        margin: 35px auto;
+        padding: 30px 35px;
+        background: white;
+        border: 1px solid #e5eaf0;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    .delete-title {
+        color: #263e59;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .delete-description {
+        color: #8491a2;
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    .warning-box {
+        background: #fff8e8;
+        border: 1px solid #f3dfae;
+        color: #946c19;
+        border-radius: 8px;
+        padding: 14px 16px;
+        margin-bottom: 22px;
+        font-size: 14px;
+    }
+
+    .info-box {
+        border: 1px solid #e5eaf0;
+        border-radius: 9px;
+        overflow: hidden;
+    }
+
+    .info-row {
+        display: flex;
+        padding: 14px 16px;
+        border-bottom: 1px solid #edf0f4;
+        font-size: 14px;
+    }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+    .info-label {
+        width: 38%;
+        color: #718096;
+        font-weight: 600;
+    }
+
+    .info-value {
+        flex: 1;
+        color: #263e59;
+        font-weight: 500;
+    }
+
+    .status-active {
+        color: #16834b;
+        font-weight: 600;
+    }
+
+    .status-inactive {
+        color: #d33b3b;
+        font-weight: 600;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    .btn-custom {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 7px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .btn-lock {
+        background: #dc3545;
+        color: white;
+    }
+
+        .btn-lock:hover {
+            background: #bd2635;
+            color: white;
+        }
+
+    .btn-back {
+        background: #edf1f5;
+        color: #526174;
+    }
+
+        .btn-back:hover {
+            background: #dfe5ec;
+            color: #34445a;
+        }
+</style>
+
+<div class="delete-card">
+    <h2 class="delete-title">Khóa tài khoản</h2>
+
+    <p class="delete-description">
+        Kiểm tra thông tin tài khoản trước khi xác nhận.
+    </p>
+
+    <div class="warning-box">
+        <strong>Lưu ý:</strong> Sau khi khóa, tài khoản sẽ không thể
+        đăng nhập vào hệ thống. Dữ liệu tài khoản vẫn được lưu giữ.
+    </div>
+
+    <div class="info-box">
+        <div class="info-row">
+            <div class="info-label">Mã tài khoản</div>
+            <div class="info-value">@Model.TaiKhoanID</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Họ và tên</div>
+            <div class="info-value">@Model.HoTen</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Tên đăng nhập</div>
+            <div class="info-value">@Model.TenDangNhap</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Email</div>
+            <div class="info-value">@Model.Email</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Vai trò</div>
+            <div class="info-value">@Model.VaiTro?.TenVaiTro</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">Trạng thái</div>
+            <div class="info-value">
+                @if (Model.TrangThai)
+                {
+                    <span class="status-active">Hoạt động</span>
+                }
+                else
+                {
+                    <span class="status-inactive">Đã khóa</span>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <a asp-action="Index" class="btn-custom btn-back">
+            Hủy
+        </a>
+
+        @if (Model.TrangThai)
+        {
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" name="id"
+                       value="@Model.TaiKhoanID" />
+
+                <button type="submit" class="btn-custom btn-lock">
+                    Khóa tài khoản
+                </button>
+            </form>
+        }
+    </div>
+</div>

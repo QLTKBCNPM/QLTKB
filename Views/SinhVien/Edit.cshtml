@@ -1,0 +1,82 @@
+﻿@model QLTKB.Models.SinhVien
+
+@{
+    ViewData["Title"] = "Sửa sinh viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="background:white; padding:25px; border-radius:12px;
+    max-width:850px; margin:auto;">
+
+    <h2>Sửa thông tin sinh viên</h2>
+    <p style="color:#7b8794;">
+        Cập nhật thông tin tài khoản và hồ sơ sinh viên.
+    </p>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <form asp-action="Edit" method="post">
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" name="id" value="@Model.SinhVienID" />
+
+        <h4>Thông tin tài khoản</h4>
+
+        <div class="mb-3">
+            <label>Họ và tên *</label>
+            <input name="fullname" class="form-control"
+                   value="@Model.TaiKhoan?.HoTen" required />
+        </div>
+
+        <div class="mb-3">
+            <label>Email *</label>
+            <input name="email" type="email" class="form-control"
+                   value="@Model.TaiKhoan?.Email" required />
+        </div>
+
+        <hr />
+
+        <h4>Thông tin hồ sơ sinh viên</h4>
+
+        <div class="mb-3">
+            <label>Mã sinh viên *</label>
+            <input name="maSinhVien" class="form-control"
+                   value="@Model.MaSinhVien" required />
+        </div>
+
+        <div class="mb-3">
+            <label>Lớp</label>
+            <input name="lop" class="form-control"
+                   value="@Model.Lop" />
+        </div>
+
+        <div class="mb-3">
+            <label>Ngành</label>
+            <input name="nganh" class="form-control"
+                   value="@Model.Nganh" />
+        </div>
+
+        <div class="mb-3">
+            <label>Khóa học</label>
+            <input name="khoaHoc" class="form-control"
+                   value="@Model.KhoaHoc" />
+        </div>
+
+        <div class="mb-3">
+            <label>Số điện thoại</label>
+            <input name="soDienThoai" class="form-control"
+                   value="@Model.SoDienThoai" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Lưu thay đổi
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Quay lại
+        </a>
+    </form>
+</div>

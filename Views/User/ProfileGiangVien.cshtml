@@ -1,0 +1,66 @@
+﻿@model QLTKB.Models.GiangVien
+
+@{
+    ViewData["Title"] = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">THÔNG TIN CÁ NHÂN</h4>
+        </div>
+
+        <div class="card-body">
+            <h5 class="text-primary mb-3">Thông tin tài khoản</h5>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="fw-bold">Họ và tên</label>
+                    <p>@Model.TaiKhoan?.HoTen</p>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="fw-bold">Tên đăng nhập</label>
+                    <p>@Model.TaiKhoan?.TenDangNhap</p>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="fw-bold">Email</label>
+                    <p>@Model.TaiKhoan?.Email</p>
+                </div>
+            </div>
+
+            <hr />
+
+            <h5 class="text-primary mb-3">Thông tin giảng viên</h5>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="fw-bold">Mã giảng viên</label>
+                    <p>@Model.MaGiangVien</p>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="fw-bold">Khoa</label>
+                    <p>@Model.Khoa</p>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="fw-bold">Bộ môn</label>
+                    <p>@Model.BoMon</p>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="fw-bold">Học vị</label>
+                    <p>@Model.HocVi</p>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="fw-bold">Số điện thoại</label>
+                    <p>@Model.SoDienThoai</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

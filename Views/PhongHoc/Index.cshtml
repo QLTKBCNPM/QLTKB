@@ -1,0 +1,120 @@
+﻿@model IEnumerable<QLTKB.Models.PhongHoc>
+
+@{
+    ViewData["Title"] = "Quản lý phòng học";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Quản lý phòng học</h2>
+        <a asp-action="Create" class="btn btn-primary">
+            + Thêm phòng học
+        </a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã phòng</th>
+                            <th>Tên phòng</th>
+                            <th>Tòa nhà</th>
+                            <th>Sức chứa</th>
+                            <th>Loại phòng</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            int stt = 1;
+
+                            @foreach (var p in Model)
+                            {
+                                <tr>
+                                    <td>@stt</td>
+                                    <td>@p.MaPhong</td>
+                                    <td>@p.TenPhong</td>
+                                    <td>@p.ToaNha</td>
+                                    <td>@p.SucChua</td>
+                                    <td>@p.LoaiPhong</td>
+                                    <td>
+                                        @if (p.TrangThai)
+                                        {
+                                            <span class="badge bg-success">Hoạt động</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Ngừng hoạt động</span>
+                                        }
+                                    </td>
+                                    <td>
+
+                                        @if (p.TrangThai)
+                                        {
+                                            <a asp-action="Edit"
+                                               asp-route-id="@p.PhongHocID"
+                                               class="btn btn-sm btn-warning">
+                                                Sửa
+                                            </a>
+
+                                            <form asp-action="Delete"
+                                                  asp-route-id="@p.PhongHocID"
+                                                  method="post"
+                                                  class="d-inline"
+                                                  onsubmit="return confirm('Bạn có chắc chắn muốn ngừng hoạt động phòng học này?');">
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    Ngừng hoạt động
+                                                </button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <form asp-action="Restore"
+                                                  asp-route-id="@p.PhongHocID"
+                                                  method="post"
+                                                  class="d-inline"
+                                                  onsubmit="return confirm('Bạn có muốn khôi phục phòng học này?');">
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    Khôi phục
+                                                </button>
+                                            </form>
+                                        }
+
+                                    </td>
+                                </tr>
+
+                                stt++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="8" class="text-center">
+                                    Chưa có phòng học nào.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
