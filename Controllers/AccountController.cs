@@ -109,13 +109,89 @@ namespace QLTKB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(
+     string fullname,
+     string username,
+     string email,
+     string password,
+     string confirmPassword)
+        {
+            // Kiểm tra thông tin nhập vào
+            if (string.IsNullOrWhiteSpace(fullname) ||
+                string.IsNullOrWhiteSpace(username) ||
+                string.IsNullOrWhiteSpace(email) ||
+                string.IsNullOrWhiteSpace(password) ||
+                string.IsNullOrWhiteSpace(confirmPassword))
+            {
+                ViewBag.Error = "Vui lòng nhập đầy đủ thông tin.";
+                return View();
+            }
+
+            // Kiểm tra mật khẩu xác nhận
+            if (password != confirmPassword)
+            {
+                ViewBag.Error = "Mật khẩu xác nhận không khớp.";
+                return View();
+            }
+
+            // Kiểm tra tên đăng nhập đã tồn tại
+            bool trungTenDangNhap = await _context.TaiKhoan
+                .AnyAsync(t => t.TenDangNhap == username);
+
+            if (trungTenDangNhap)
+            {
+                ViewBag.Error = "Tên đăng nhập đã tồn tại.";
+                return View();
+            }
+
+            // Kiểm tra email đã tồn tại
+            bool trungEmail = await _context.TaiKhoan
+                .AnyAsync(t => t.Email == email);
+
+            if (trungEmail)
+            {
+                ViewBag.Error = "Email đã được sử dụng.";
+                return View();
+            }
+
+            // Kiểm tra vai trò Sinh viên
+            var vaiTro = await _context.VaiTro
+                .FirstOrDefaultAsync(v => v.VaiTroID == 6);
+
+            if (vaiTro == null)
+            {
+                ViewBag.Error = "Không tìm thấy vai trò Sinh viên.";
+                return View();
+            }
+
+            // Tạo tài khoản mới
+            var taiKhoan = new TaiKhoan
+            {
+                HoTen = fullname,
+                TenDangNhap = username,
+                Email = email,
+                MatKhau = password,
+                VaiTroID = 6,
+                TrangThai = true,
+                NgayTao = DateTime.Now
+            };
+
+            // Lưu trực tiếp vào CSDL
+            _context.TaiKhoan.Add(taiKhoan);
+            await _context.SaveChangesAsync();
+
+            ViewBag.Success = "Đăng ký thành công! Bạn có thể đăng nhập.";
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme
             );
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
     }
 }
